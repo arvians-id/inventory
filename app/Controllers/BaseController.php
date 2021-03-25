@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use CodeIgniter\Controller;
+use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
@@ -28,6 +29,14 @@ class BaseController extends Controller
 	 * @var array
 	 */
 	protected $helpers = [];
+	/**
+	 * Instance of the main Request object.
+	 *
+	 * @var IncomingRequest
+	 */
+	protected $request;
+
+	protected $session, $sendEmail, $validation;
 
 	/**
 	 * Constructor.
@@ -45,5 +54,9 @@ class BaseController extends Controller
 		// Preload any models, libraries, etc, here.
 		//--------------------------------------------------------------------
 		// E.g.: $this->session = \Config\Services::session();
+		$this->session = \Config\Services::session();
+		$this->sendEmail = \Config\Services::email();
+		$this->validation = \Config\Services::validation();
+		date_default_timezone_set('Asia/Jakarta');
 	}
 }
