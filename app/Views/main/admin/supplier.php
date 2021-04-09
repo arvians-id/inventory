@@ -35,6 +35,7 @@
                             </div>
                         <?php endif ?>
                         <form action="/admin/buat_supplier" method="post">
+                            <?= csrf_field() ?>
                             <div class="form-group">
                                 <label>Nama Supplier</label><span class="text-danger"> *</span>
                                 <input type="text" class="form-control <?= $validation->hasError('nama') ? 'is-invalid' : '' ?>" name="nama" value="<?= old('nama') ?>" placeholder="Nama lengkap">
@@ -120,6 +121,7 @@
             </div>
             <div class="modal-body">
                 <form method="post" id="form-ubah">
+                    <?= csrf_field() ?>
                     <div class="form-group">
                         <label>Nama Supplier</label><span class="text-danger"> *</span>
                         <input type="text" class="form-control <?= $validation->hasError('nama_ubah') ? 'is-invalid' : '' ?>" name="nama_ubah" placeholder="Nama lengkap">

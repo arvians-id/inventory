@@ -4,14 +4,17 @@ namespace App\Controllers;
 
 use App\Models\AuthPengguna_model;
 use App\Models\DataBahan_model;
+use App\Models\DataBahanKeluar_model;
+use App\Models\DataBahanMasuk_model;
 use App\Models\DataBarang_model;
+use App\Models\DataBarangMasuk_model;
 use App\Models\DataSatuan_model;
 use App\Models\DataSupplier_model;
 use CodeIgniter\I18n\Time;
 
 class Admin extends BaseController
 {
-    protected $authPengguna_m, $dataBarang_m, $dataBahan_m, $dataSupplier_m, $dataSatuan_m;
+    protected $authPengguna_m, $dataBarang_m, $dataBahan_m, $dataSupplier_m, $dataSatuan_m, $dataBahanMasuk_m, $dataBahanKeluar_m, $dataBarangMasuk_m;
 
     public function __construct()
     {
@@ -20,6 +23,9 @@ class Admin extends BaseController
         $this->dataBahan_m = new DataBahan_model();
         $this->dataSupplier_m = new DataSupplier_model();
         $this->dataSatuan_m = new DataSatuan_model();
+        $this->dataBahanMasuk_m = new DataBahanMasuk_model();
+        $this->dataBahanKeluar_m = new DataBahanKeluar_model();
+        $this->dataBarangMasuk_m = new DataBarangMasuk_model();
     }
     public function index()
     {
@@ -96,8 +102,12 @@ class Admin extends BaseController
     }
     public function hapus_bahan($id)
     {
-        $this->dataBahan_m->where(['id_bhn' => $id])->delete();
-        return redirect()->to('/admin/bahan')->with('sukses', 'Data bahan berhasil dihapus!');
+        try {
+            $this->dataBahan_m->where(['id_bhn' => $id])->delete();
+            return redirect()->to('/admin/bahan')->with('sukses', 'Data bahan berhasil dihapus!');
+        } catch (\Exception $e) {
+            return redirect()->to('/admin/bahan')->with('gagal', 'Data tidak bisa dihapus');
+        }
     }
     public function ubah_bahan($id)
     {
@@ -147,8 +157,12 @@ class Admin extends BaseController
     }
     public function hapus_supplier($id)
     {
-        $this->dataSupplier_m->where(['id_supp' => $id])->delete();
-        return redirect()->to('/admin/supplier')->with('sukses', 'Data supplier berhasil dihapus!');
+        try {
+            $this->dataSupplier_m->where(['id_supp' => $id])->delete();
+            return redirect()->to('/admin/supplier')->with('sukses', 'Data supplier berhasil dihapus!');
+        } catch (\Exception $e) {
+            return redirect()->to('/admin/supplier')->with('gagal', 'Data tidak bisa dihapus');
+        }
     }
     public function ubah_supplier($id)
     {
@@ -199,8 +213,12 @@ class Admin extends BaseController
     }
     public function hapus_barang($id)
     {
-        $this->dataBarang_m->where(['id_brg' => $id])->delete();
-        return redirect()->to('/admin/barang')->with('sukses', 'Data barang berhasil dihapus!');
+        try {
+            $this->dataBarang_m->where(['id_brg' => $id])->delete();
+            return redirect()->to('/admin/barang')->with('sukses', 'Data barang berhasil dihapus!');
+        } catch (\Exception $e) {
+            return redirect()->to('/admin/barang')->with('gagal', 'Data tidak bisa dihapus');
+        }
     }
     public function ubah_barang($id)
     {
@@ -218,5 +236,144 @@ class Admin extends BaseController
         } else {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
+    }
+    // Bahan Masuk
+    public function bahan_masuk()
+    {
+        $data = [
+            'judul' => 'Inventory',
+            'getAdmin' => $this->authPengguna_m->getAdminBySession(),
+            'getBahanMasuk' => $this->dataBahanMasuk_m->getBahanMasuk(),
+            'validation' => $this->validation,
+            'getSupplier' => $this->dataSupplier_m->findAll(),
+        ];
+        return view('main/admin/bahan_masuk', $data);
+    }
+    public function buat_bahan_masuk()
+    {
+        $data = [
+            'judul' => 'Inventory',
+            'getAdmin' => $this->authPengguna_m->getAdminBySession(),
+            'getBahan' => $this->dataBahan_m->getBahan(),
+            'getSupplier' => $this->dataSupplier_m->findAll(),
+            'validation' => $this->validation,
+        ];
+        return view('main/admin/buat_bahan_masuk', $data);
+    }
+    public function create_bahan_masuk()
+    {
+        if ($this->request->getPost()) {
+            if (!$this->validate('buat_bahan_masuk')) {
+                return redirect()->to('/admin/buat_bahan_masuk')->withInput();
+            }
+            $idBhn = $this->request->getPost('id_bhn');
+            $data = [
+                'id_bhn' => $idBhn,
+                'id_supp' => $this->request->getPost('id_supp'),
+                'jml_masuk' => $this->request->getPost('jml_masuk'),
+                'tgl_masuk' => $this->request->getPost('tgl_masuk'),
+            ];
+            $this->dataBahanMasuk_m->save($data);
+
+            $dataBahan = [
+                'id_bhn' => $idBhn,
+                'total_stok' => $this->request->getPost('total_stok')
+            ];
+            $this->dataBahan_m->save($dataBahan);
+            return redirect()->to('/admin/bahan_masuk')->with('sukses', 'Data transaksi bahan masuk berhasil ditambahkan!');
+        } else {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+    }
+    public function hapus_bahan_masuk($id)
+    {
+        $getJmlMasuk = $this->dataBahanMasuk_m->getBahanMasukById($id);
+        $stokBahan = $this->dataBahan_m->getBahanById($getJmlMasuk['id_bhn']);
+        if (($stokBahan['total_stok'] - $getJmlMasuk['jml_masuk']) < 0) {
+            return redirect()->to('/admin/bahan_masuk')->with('gagal', 'Gagal menghapus, stok tidak boleh minus');
+        } else {
+            if ($this->dataBahanMasuk_m->deleteBahanMasuk($id) !== FALSE) {
+                return redirect()->to('/admin/bahan_masuk')->with('sukses', 'Data bahan masuk berhasil dihapus!');
+            }
+        }
+    }
+    public function ubah_bahan_masuk($id)
+    {
+        if ($this->request->getPost()) {
+            if (!$this->validate('bahan_ubah_masuk')) {
+                return redirect()->to('/admin/bahan_masuk')->withInput()->with('gagal', 'Terdapat data yang fail pada modal ubah');
+            }
+            $data = [
+                'id_bhn_msk' => $id,
+                'id_supp' => $this->request->getPost('id_supp'),
+                'updated_at' => Time::now('Asia/Jakarta')
+            ];
+            $this->dataBahanMasuk_m->save($data);
+            return redirect()->to('/admin/bahan_masuk')->with('sukses', 'Data bahan masuk berhasil diubah!');
+        } else {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+    }
+    // Bahan Keluar
+    public function bahan_keluar()
+    {
+        $data = [
+            'judul' => 'Inventory',
+            'getAdmin' => $this->authPengguna_m->getAdminBySession(),
+            'getBahanKeluar' => $this->dataBahanKeluar_m->getBahanKeluar()
+        ];
+        return view('main/admin/bahan_keluar', $data);
+    }
+    public function buat_bahan_keluar()
+    {
+        $data = [
+            'judul' => 'Inventory',
+            'getAdmin' => $this->authPengguna_m->getAdminBySession(),
+            'getBahan' => $this->dataBahan_m->getBahan('findnull'),
+            'getBarang' => $this->dataBarang_m->findAll(),
+            'validation' => $this->validation,
+        ];
+        return view('main/admin/buat_bahan_keluar', $data);
+    }
+    public function create_bahan_keluar()
+    {
+        if ($this->request->getPost()) {
+            if (!$this->validate('buat_bahan_keluar')) {
+                return redirect()->to('/admin/buat_bahan_keluar')->withInput();
+            }
+            $tanggal = $this->request->getPost('tgl_keluar');
+            $totalStokBahan = $this->request->getPost('stok_bahan');
+            $idBhn = $this->request->getPost('id_bhn');
+            $jml_keluar = $this->request->getPost('jml_keluar');
+            $idBrg = $this->request->getPost('id_brg');
+            $dataBarangMasuk = [
+                'id_brg' => $idBrg,
+                'jml_masuk' => $this->request->getPost('jml_masuk'),
+                'tgl_masuk' => $tanggal,
+                'created_at' => Time::now('Asia/Jakarta'),
+                'updated_at' => Time::now('Asia/Jakarta')
+            ];
+
+            if ($this->dataBahanKeluar_m->insertBahanKeluarBarangMasuk($dataBarangMasuk, $idBhn, $jml_keluar, $tanggal, $totalStokBahan) != FALSE) {
+                $dataBarang = [
+                    'id_brg' => $idBrg,
+                    'total_stok' => $this->request->getPost('total_stok')
+                ];
+                $this->dataBarang_m->save($dataBarang);
+            }
+            return redirect()->to('/admin/bahan_keluar')->with('sukses', 'Data transaksi bahan keluar berhasil ditambahkan!');
+        } else {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+    }
+    // Barang Masuk
+    public function barang_masuk()
+    {
+        $data = [
+            'judul' => 'Inventory',
+            'getAdmin' => $this->authPengguna_m->getAdminBySession(),
+            'getBarangMasuk' => $this->dataBarangMasuk_m->getBarangKeluar()
+        ];
+        return view('main/admin/barang_masuk', $data);
     }
 }

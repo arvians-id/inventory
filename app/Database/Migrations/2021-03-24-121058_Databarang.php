@@ -23,6 +23,10 @@ class Databarang extends Migration
 				'type'				=> 'INT',
 				'constraint'		=> 11,
 			],
+			'total_stok' => [
+				'type'				=> 'INT',
+				'constraint'		=> 100,
+			],
 			'created_at' => [
 				'type'				=> 'DATETIME',
 				'null'				=> true

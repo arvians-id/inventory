@@ -204,4 +204,97 @@ class Validation
 			]
 		],
 	];
+	public $buat_bahan_masuk = [
+		'tgl_masuk' => [
+			'rules' => 'required',
+			'errors' => [
+				'required' => 'tanggal masuk jangan kosong',
+			]
+		],
+		'id_supp' => [
+			'rules' => 'required',
+			'errors' => [
+				'required' => 'supplier jangan kosong',
+			]
+		],
+		'id_bhn' => [
+			'rules' => 'required',
+			'errors' => [
+				'required' => 'bahan jangan kosong',
+			]
+		],
+		'jml_masuk' => [
+			'rules' => 'required|numeric',
+			'errors' => [
+				'required' => 'jumlah masuk jangan kosong',
+				'numeric' => 'jumlah masuk tidak valid',
+			]
+		],
+		'total_stok' => [
+			'rules' => 'required|numeric|greater_than[-1]',
+			'errors' => [
+				'required' => 'stok bahan jangan kosong',
+				'numeric' => 'jumlah masuk tidak valid',
+				'greater_than' => 'terdapat input stok bahan yang minus',
+			]
+		],
+		'stok_awal' => [
+			'rules' => 'required|numeric',
+			'errors' => [
+				'required' => 'stok awal jangan kosong',
+				'numeric' => 'jumlah masuk tidak valid',
+			]
+		],
+	];
+	public $buat_bahan_keluar = [
+		'id_brg' => [
+			'rules' => 'required',
+			'errors' => [
+				'required' => 'barang jangan kosong',
+			]
+		],
+		'jml_masuk' => [
+			'rules' => 'required|numeric',
+			'errors' => [
+				'required' => 'jumlah barang masuk jangan kosong',
+				'numeric' => 'jumlah barang masuk tidak valid',
+			]
+		],
+		'tgl_keluar' => [
+			'rules' => 'required',
+			'errors' => [
+				'required' => 'tanggal keluar jangan kosong',
+			]
+		],
+		'jml_keluar.*' => [
+			'rules' => 'required|numeric',
+			'errors' => [
+				'required' => 'jumlah bahan keluar jangan kosong',
+				'numeric' => 'jumlah bahan keluar tidak valid',
+			]
+		],
+		'stok_bahan.*' => [
+			'rules' => 'required|greater_than[-1]',
+			'errors' => [
+				'required' => 'stok bahan jangan kosong',
+				'greater_than' => 'terdapat input stok bahan yang minus',
+			]
+		],
+		'total_stok' => [
+			'rules' => 'required|numeric|greater_than[-1]',
+			'errors' => [
+				'required' => 'total stok jangan kosong',
+				'numeric' => 'jumlah masuk tidak valid',
+				'greater_than' => 'total stok jangan minus',
+			]
+		],
+	];
+	public $bahan_ubah_masuk = [
+		'id_supp' => [
+			'rules' => 'required',
+			'errors' => [
+				'required' => 'supplier jangan kosong',
+			]
+		],
+	];
 }

@@ -4,27 +4,31 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class Databahan extends Migration
+class DataBahanKeluar extends Migration
 {
 	public function up()
 	{
 		$this->forge->addField([
-			'id_bhn' => [
+			'id_bhn_klr' => [
 				'type' 				=> 'INT',
 				'constraint' 		=> 11,
 				'auto_increment'	=> true
 			],
-			'nama_bhn' => [
-				'type'				=> 'VARCHAR',
-				'constraint'		=> 128,
+			'id_brg_msk' => [
+				'type' 				=> 'INT',
+				'constraint' 		=> 11,
+				'auto_increment'	=> true
 			],
-			'id_satuan' => [
+			'id_bhn' => [
 				'type'				=> 'INT',
 				'constraint'		=> 11,
 			],
-			'total_stok' => [
+			'jml_keluar' => [
 				'type'				=> 'INT',
-				'constraint'		=> 100,
+				'constraint'		=> 11,
+			],
+			'tgl_keluar' => [
+				'type'				=> 'DATE',
 			],
 			'created_at' => [
 				'type'				=> 'DATETIME',
@@ -36,12 +40,12 @@ class Databahan extends Migration
 			]
 		]);
 
-		$this->forge->addKey('id_bhn', true);
-		$this->forge->createTable('data_bahan');
+		$this->forge->addKey('id_bhn_klr', true);
+		$this->forge->createTable('data_bahan_keluar');
 	}
 
 	public function down()
 	{
-		$this->forge->dropTable('data_bahan');
+		$this->forge->dropTable('data_bahan_keluar');
 	}
 }

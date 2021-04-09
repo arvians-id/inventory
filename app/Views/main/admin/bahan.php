@@ -35,6 +35,7 @@
                             </div>
                         <?php endif ?>
                         <form action="/admin/buat_bahan" method="post">
+                            <?= csrf_field() ?>
                             <div class="form-group">
                                 <label>Nama Bahan</label><span class="text-danger"> *</span>
                                 <input type="text" class="form-control <?= $validation->hasError('nama_bhn') ? 'is-invalid' : '' ?>" name="nama_bhn" value="<?= old('nama_bhn') ?>" placeholder="contoh: Kayu">
@@ -45,7 +46,7 @@
                                 <select class="custom-select col-12 <?= $validation->hasError('id_satuan') ? 'is-invalid' : '' ?>" name="id_satuan">
                                     <option selected disabled>Pilih...</option>
                                     <?php foreach ($getSatuan as $satuan) : ?>
-                                        <option value="<?= $satuan['id_satuan'] ?>" <?= old('id_satuan') ? 'selected' : '' ?>><?= $satuan['satuan'] ?></option>
+                                        <option value="<?= $satuan['id_satuan'] ?>" <?= old('id_satuan') == $satuan['id_satuan'] ? 'selected' : '' ?>><?= $satuan['satuan'] ?></option>
                                     <?php endforeach ?>
                                 </select>
                                 <div class="invalid-feedback"><?= $validation->getError('id_satuan') ?></div>
@@ -82,7 +83,7 @@
                                 <tr>
                                     <td><?= $no++ ?></td>
                                     <td><?= $bahan['nama_bhn'] ?></td>
-                                    <td>20</td>
+                                    <td><?= $bahan['total_stok'] ?></td>
                                     <td><?= $bahan['satuan'] ?></td>
                                     <td><?= $bahan['dibuat_bahan'] ?></td>
                                     <td><?= $bahan['diubah_bahan'] ?></td>
@@ -123,7 +124,7 @@
                         <select class="custom-select col-12 <?= $validation->hasError('id_satuan_ubah') ? 'is-invalid' : '' ?>" name="id_satuan_ubah">
                             <option selected disabled>Pilih...</option>
                             <?php foreach ($getSatuan as $satuan) : ?>
-                                <option value="<?= $satuan['id_satuan'] ?>" <?= old('id_satuan_ubah') ? 'selected' : '' ?>><?= $satuan['satuan'] ?></option>
+                                <option value="<?= $satuan['id_satuan'] ?>" <?= old('id_satuan_ubah') == $satuan['id_satuan'] ? 'selected' : '' ?>><?= $satuan['satuan'] ?></option>
                             <?php endforeach ?>
                         </select>
                         <div class="invalid-feedback"><?= $validation->getError('id_satuan_ubah') ?></div>

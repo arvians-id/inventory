@@ -26,6 +26,9 @@ class Databahanmasuk extends Migration
 				'type'				=> 'INT',
 				'constraint'		=> 11,
 			],
+			'tgl_masuk' => [
+				'type'				=> 'DATE',
+			],
 			'created_at' => [
 				'type'				=> 'DATETIME',
 				'null'				=> true

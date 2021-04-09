@@ -14,15 +14,19 @@
                         <li><a href="/admin/barang">Data Barang</a></li>
                     </ul>
                 </li>
-                <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0);" aria-expanded="false"><i class="icon-Handshake"></i><span class="hide-menu">Transaksi</span></a>
+                <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0);" aria-expanded="false"><i class="icon-Shopping-Basket"></i><span class="hide-menu">Transaksi Bahan</span></a>
                     <ul aria-expanded="false" class="collapse">
-                        <li><a href="app-chat.html">Bahan Masuk</a></li>
-                        <li><a href="app-calendar.html">Bahan Keluar</a></li>
-                        <li><a href="app-calendar.html">Barang Keluar</a></li>
-                        <li><a href="app-chat.html">Barang Keluar</a></li>
+                        <li><a href="/admin/bahan_masuk">Bahan Masuk</a></li>
+                        <li><a href="/admin/bahan_keluar">Bahan Keluar</a></li>
                     </ul>
                 </li>
-                <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0);" aria-expanded="false"><i class="icon-Newspaper"></i><span class="hide-menu">Kelola Laporan</span></a>
+                <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0);" aria-expanded="false"><i class="icon-Box-Close"></i><span class="hide-menu">Transaksi Barang</span></a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a href="/admin/barang_masuk">Barang Masuk</a></li>
+                        <li><a href="app-calendar.html">Barang Keluar</a></li>
+                    </ul>
+                </li>
+                <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0);" aria-expanded="false"><i class="icon-Box-Full"></i><span class="hide-menu">Kelola Laporan</span></a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="app-email.html">Laporan</a></li>
                     </ul>
