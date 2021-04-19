@@ -15,7 +15,6 @@
         <div class="card shadow-sm">
             <div class="card-body">
                 <h4 class="card-title">Buat Bahan</h4>
-                <h6 class="card-subtitle"> All with bootstrap element classies </h6>
                 <hr>
                 <div class="row justify-content-center">
                     <div class="col-12 col-lg-8">
@@ -62,7 +61,6 @@
         <div class="card shadow-sm">
             <div class="card-body">
                 <h4 class="card-title">Data Bahan</h4>
-                <h6 class="card-subtitle">Data table example</h6>
                 <hr>
                 <div class="table-responsive">
                     <table id="bahan-table" class="table display table-bordered table-striped no-wrap">

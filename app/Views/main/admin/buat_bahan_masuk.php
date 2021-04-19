@@ -4,17 +4,16 @@
     <div class="container-fluid">
         <div class="row page-titles">
             <div class="col-md-5 align-self-center">
-                <h3 class="text-themecolor">Buat & Data Bahan</h3>
+                <h3 class="text-themecolor">Buat Bahan Masuk</h3>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/admin">Admin</a></li>
-                    <li class="breadcrumb-item active">Buat & Data Bahan</li>
+                    <li class="breadcrumb-item active">Buat Bahan Masuk</li>
                 </ol>
             </div>
         </div>
         <div class="card shadow-sm">
             <div class="card-body">
-                <h4 class="card-title">Buat Bahan</h4>
-                <h6 class="card-subtitle"> All with bootstrap element classies </h6>
+                <h4 class="card-title">Buat Bahan Masuk</h4>
                 <hr>
                 <div class="row justify-content-center">
                     <div class="col-12 col-lg-8">

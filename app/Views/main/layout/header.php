@@ -31,9 +31,6 @@
                     <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span><?= ucfirst($getAdmin['username']) ?> &nbsp;<i class="fa fa-angle-down"></i></span> </a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <ul class="dropdown-user">
-                            <li><a href="#"><i class="ti-user"></i> Profil Saya</a></li>
-                            <li><a href="#"><i class="ti-settings"></i> Pengaturan</a></li>
-                            <li role="separator" class="divider"></li>
                             <li><a href="/masuk/logout"><i class="fa fa-power-off"></i> Keluar</a></li>
                         </ul>
                     </div>

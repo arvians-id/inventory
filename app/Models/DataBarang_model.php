@@ -23,4 +23,8 @@ class DataBarang_model extends Model
 
         return $builder->get()->getResultArray();
     }
+    public function countBarang()
+    {
+        return $this->db->table($this->table)->countAllResults();
+    }
 }

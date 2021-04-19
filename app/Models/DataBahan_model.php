@@ -34,4 +34,8 @@ class DataBahan_model extends Model
     {
         return $this->db->table($this->table)->where('id_bhn', $id)->get()->getRowArray();
     }
+    public function countBahan()
+    {
+        return $this->db->table($this->table)->countAllResults();
+    }
 }

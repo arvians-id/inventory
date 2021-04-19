@@ -18,7 +18,6 @@
         <div class="card shadow-sm">
             <div class="card-body">
                 <h4 class="card-title">Barang Masuk</h4>
-                <h6 class="card-subtitle">Data table example</h6>
                 <hr>
                 <?php if (session()->getFlashdata('sukses')) : ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -40,11 +39,11 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>ID Transaksi</th>
                                 <th>Tanggal masuk</th>
                                 <th>Nama barang</th>
                                 <th>Jumlah masuk</th>
-                                <th>Jumlah masuk</th>
+                                <th>Satuan</th>
+                                <th>Dibuat</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -53,15 +52,14 @@
                             foreach ($getBarangMasuk as $barangMasuk) : ?>
                                 <tr>
                                     <td><?= $no++ ?></td>
-                                    <td><?= 'TRX00000' . $barangMasuk['id_brg_msk'] ?></td>
                                     <td><?= $barangMasuk['tgl_masuk'] ?></td>
                                     <td><?= $barangMasuk['nama_brg'] ?></td>
                                     <td><?= $barangMasuk['jml_masuk'] ?></td>
+                                    <td><?= $barangMasuk['satuan'] ?></td>
                                     <td><?= $barangMasuk['dibuat_barang'] ?></td>
                                     <td style="text-align: center;">
-                                        <a href="/admin/hapus_bahan_keluar/<?= $barangMasuk['id_brg_msk'] ?>" id="hapus-bahan-keluar" class="btn btn-danger btn-sm">Hapus</a>
-                                        <a href="javascript:void(0);" id="ubah-barang" class="btn btn-info btn-sm">Ubah</a>
-                                        <a href="javascript:void(0);" id="ubah-barang" class="btn btn-warning btn-sm">Detail</a>
+                                        <a href="/admin/hapus_barang_masuk/<?= $barangMasuk['id_brg_msk'] ?>" id="hapus-barang-masuk" class="btn btn-danger btn-sm">Hapus</a>
+                                        <a href="/admin/barang_masuk/<?= $barangMasuk['id_brg_msk'] ?>" class="btn btn-warning btn-sm">Detail</a>
                                     </td>
                                 </tr>
                             <?php endforeach ?>
@@ -91,12 +89,12 @@
             ],
         })
 
-        $(document).on('click', '#hapus-bahan-masuk', function(event) {
+        $(document).on('click', '#hapus-barang-masuk', function(event) {
             event.preventDefault();
             let href = $(this).attr('href');
             Swal.fire({
                 title: 'Perhatian!',
-                text: 'Yakin ingin menghapus data bahan masuk ini?',
+                text: 'Jika menghapus data ini, kemungkinan bahan keluar yang terkait dengan data ini akan ikut terhapus. Yakin ingin menghapus?',
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#1d96c3',

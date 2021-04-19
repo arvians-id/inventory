@@ -18,7 +18,6 @@
         <div class="card shadow-sm">
             <div class="card-body">
                 <h4 class="card-title">Bahan Masuk</h4>
-                <h6 class="card-subtitle">Data table example</h6>
                 <hr>
                 <?php if (session()->getFlashdata('sukses')) : ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">

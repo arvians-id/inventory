@@ -32,7 +32,10 @@ class Admin extends BaseController
         $data = [
             'judul' => 'Inventory',
             'getAdmin' => $this->authPengguna_m->getAdminBySession(),
-            'validation' => $this->validation,
+            'countSatuan' => $this->dataSatuan_m->countSatuan(),
+            'countBahan' => $this->dataBahan_m->countBahan(),
+            'countSupplier' => $this->dataSupplier_m->countSupplier(),
+            'countBarang' => $this->dataBarang_m->countBarang(),
         ];
         return view('main/admin/index', $data);
     }
@@ -367,13 +370,28 @@ class Admin extends BaseController
         }
     }
     // Barang Masuk
-    public function barang_masuk()
+    public function barang_masuk($id = null)
     {
+        if ($id != null) {
+            $data = [
+                'judul' => 'Inventory',
+                'getAdmin' => $this->authPengguna_m->getAdminBySession(),
+                'getBahanKeluar' => $this->dataBahanKeluar_m->getBahanKeluar($id),
+                'getBarangMasuk' => $this->dataBarangMasuk_m->getBarangMasukById($id)
+            ];
+            return view('main/admin/detail_barang_masuk', $data);
+        }
         $data = [
             'judul' => 'Inventory',
             'getAdmin' => $this->authPengguna_m->getAdminBySession(),
-            'getBarangMasuk' => $this->dataBarangMasuk_m->getBarangKeluar()
+            'getBarangMasuk' => $this->dataBarangMasuk_m->getBarangMasuk()
         ];
         return view('main/admin/barang_masuk', $data);
+    }
+    public function hapus_barang_masuk($id)
+    {
+        if ($this->dataBarangMasuk_m->deleteBarangMasuk($id) !== FALSE) {
+            return redirect()->to('/admin/barang_masuk')->with('sukses', 'Data barang masuk berhasil dihapus!');
+        }
     }
 }

@@ -16,13 +16,23 @@
                 </li>
                 <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0);" aria-expanded="false"><i class="icon-Shopping-Basket"></i><span class="hide-menu">Transaksi Bahan</span></a>
                     <ul aria-expanded="false" class="collapse">
-                        <li><a href="/admin/bahan_masuk">Bahan Masuk</a></li>
-                        <li><a href="/admin/bahan_keluar">Bahan Keluar</a></li>
+                        <li> <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Bahan Masuk</a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="/admin/bahan_masuk">Data</a></li>
+                                <li><a href="/admin/buat_bahan_masuk">Tambah</a></li>
+                            </ul>
+                        </li>
+                        <li> <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Bahan Keluar</a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="/admin/bahan_keluar">Data</a></li>
+                                <li><a href="/admin/buat_bahan_keluar">Tambah</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
-                <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0);" aria-expanded="false"><i class="icon-Box-Close"></i><span class="hide-menu">Transaksi Barang</span></a>
+                <li <?= service('uri')->getSegment(2) == 'barang_masuk' ? 'class="active"' : '' ?>> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0);" aria-expanded="false"><i class="icon-Box-Close"></i><span class="hide-menu">Transaksi Barang</span></a>
                     <ul aria-expanded="false" class="collapse">
-                        <li><a href="/admin/barang_masuk">Barang Masuk</a></li>
+                        <li><a href="/admin/barang_masuk" <?= service('uri')->getSegment(2) == 'barang_masuk' ? 'class="active"' : '' ?>>Barang Masuk</a></li>
                         <li><a href="app-calendar.html">Barang Keluar</a></li>
                     </ul>
                 </li>
@@ -34,7 +44,6 @@
                 <li class="nav-small-cap">--- LAINNYA</li>
                 <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0);" aria-expanded="false"><i class="icon-Settings-Window"></i><span class="hide-menu">Pengaturan</span></a>
                     <ul aria-expanded="false" class="collapse">
-                        <li><a href="table-basic.html">Pengaturan Website</a></li>
                         <li><a href="/masuk/logout">Keluar</a></li>
                     </ul>
                 </li>

@@ -18,7 +18,6 @@
         <div class="card shadow-sm">
             <div class="card-body">
                 <h4 class="card-title">Bahan Keluar</h4>
-                <h6 class="card-subtitle">Data table example</h6>
                 <hr>
                 <?php if (session()->getFlashdata('sukses')) : ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -40,7 +39,6 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>ID Transaksi</th>
                                 <th>Tanggal keluar</th>
                                 <th>Nama bahan</th>
                                 <th>Jumlah keluar</th>
@@ -52,7 +50,6 @@
                             foreach ($getBahanKeluar as $bahanKeluar) : ?>
                                 <tr>
                                     <td><?= $no++ ?></td>
-                                    <td><?= 'TRX00000' . $bahanKeluar['id_brg_msk'] ?></td>
                                     <td><?= $bahanKeluar['tgl_keluar'] ?></td>
                                     <td><?= $bahanKeluar['nama_bhn'] ?></td>
                                     <td><?= $bahanKeluar['jml_keluar'] ?></td>

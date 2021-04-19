@@ -4,17 +4,16 @@
     <div class="container-fluid">
         <div class="row page-titles">
             <div class="col-md-5 align-self-center">
-                <h3 class="text-themecolor">Buat & Data Bahan</h3>
+                <h3 class="text-themecolor">Buat Bahan Keluar</h3>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/admin">Admin</a></li>
-                    <li class="breadcrumb-item active">Buat & Data Bahan</li>
+                    <li class="breadcrumb-item active">Buat Bahan Keluar</li>
                 </ol>
             </div>
         </div>
         <div class="card shadow-sm">
             <div class="card-body">
-                <h4 class="card-title">Buat Bahan</h4>
-                <h6 class="card-subtitle"> All with bootstrap element classies </h6>
+                <h4 class="card-title">Buat Bahan Keluar</h4>
                 <hr>
                 <form action="/admin/create_bahan_keluar" method="post">
                     <div class="row justify-content-center">
@@ -36,7 +35,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Jumlah Barang Masuk</label><span class="text-danger"> *</span>
-                                <input type="text" class="form-control <?= $validation->hasError('jml_masuk') ? 'is-invalid' : '' ?>" name="jml_masuk" value="<?= old('jml_masuk') ?>" <?= old('id_brg') ? '' : 'readonly' ?>>
+                                <input type="text" class="form-control <?= $validation->hasError('jml_masuk') ? 'is-invalid' : '' ?>" name="jml_masuk" value="<?= old('jml_masuk') ?>" <?= old('id_brg') ? '' : 'readonly' ?> autocomplete="off">
                                 <div class="invalid-feedback"><?= $validation->getError('jml_masuk') ?></div>
                             </div>
                             <div class="form-group">

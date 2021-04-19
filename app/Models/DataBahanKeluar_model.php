@@ -53,12 +53,15 @@ class DataBahanKeluar_model extends Model
         $this->db->transComplete();
         return $this->db->transStatus();
     }
-    public function getBahanKeluar()
+    public function getBahanKeluar($id = null)
     {
         $builder = $this->db->table($this->table);
         $builder->select("*, $this->table.created_at as dibuat_bahan, $this->table.updated_at as diubah_bahan");
         $builder->join($this->table_barang_masuk, "$this->table_barang_masuk.id_brg_msk =  $this->table.id_brg_msk");
         $builder->join($this->table_bahan, "$this->table_bahan.id_bhn =  $this->table.id_bhn");
+        if ($id != null) {
+            $builder->where("$this->table.id_brg_msk", $id);
+        }
         $builder->orderBy("$this->table.id_bhn_klr", 'DESC');
 
         return $builder->get()->getResultArray();
